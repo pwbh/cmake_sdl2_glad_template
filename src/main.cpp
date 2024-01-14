@@ -1,7 +1,7 @@
 #include <iostream>
 #define GL_SILENCE_DEPRECATION
 
-#include <glad/glad.h>
+#include <glad/gl.h>
 
 #include <GLFW/glfw3.h>
 
@@ -29,8 +29,10 @@ int main(void) {
 
   glfwMakeContextCurrent(window);
 
-  if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
-    std::cout << "Failed to initialize GLAD\n ";
+  int version = gladLoadGL(glfwGetProcAddress);
+
+  if (version == 0) {
+    printf("Failed to initialize OpenGL context\n");
     return -1;
   }
 
