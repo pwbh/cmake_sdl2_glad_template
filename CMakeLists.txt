@@ -30,6 +30,10 @@ if (NOT EXISTS "${PROJECT_SOURCE_DIR}/external/glfw/CMakeLists.txt")
   message(FATAL_ERROR "The glfw submodules was not downloaded! GIT_SUBMODULE was turned of or failed. Please check CMakeLists.")
 endif()
 
+if (NOT EXISTS "${PROJECT_SOURCE_DIR}/external/glad/CMakeLists.txt")
+  message(FATAL_ERROR "The glad CMakeLists.txt is missing, you need to generate one yourself.")
+endif()
+
 add_subdirectory(external/glfw)
 add_subdirectory(external/glad)
 
