@@ -1,3 +1,3 @@
 #! /bin/sh
 
-cd out/build ; ./opengl_cpp
+cd out/build ; make ; ./opengl_cpp

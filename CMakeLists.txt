@@ -21,6 +21,10 @@ target_link_directories(${PROJECT_NAME}
 
 target_link_libraries(${PROJECT_NAME} glfw)
 
+if (APPLE)
+  target_link_libraries(opengl_cpp "-framework OpenGL")
+endif()
+
 # Create a symlink between the compile_commands in build folder and the src folder 
 # so that clangd can recognize different compiler arguments set in CMake
 file(CREATE_LINK
