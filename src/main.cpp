@@ -43,11 +43,12 @@ int main(void) {
     return -1;
   }
 
+  SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
   SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
   SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
   SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
 
-  SDL_GLContext maincontext{SDL_GL_CreateContext(window)};
+  SDL_GLContext context{SDL_GL_CreateContext(window)};
 
   if (maincontext == NULL) {
     std::cout << "Failed to create SDL2 context\n ";
@@ -70,12 +71,18 @@ int main(void) {
   bool quit{false};
 
   while (!quit) {
+    handleInput(window, event, quit);
+
     glClearColor(0.2f, 0.3f, 1.f, 0.f);
     glClear(GL_COLOR_BUFFER_BIT);
 
     SDL_GL_SwapWindow(window);
-    handleInput(window, event, quit);
+    SDL_Delay(1);
   }
+
+  SDL_GL_DeleteContext(context);
+  SDL_DestroyWindow(window);
+  SDL_Quit();
 
   return 0;
 }
