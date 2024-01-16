@@ -31,22 +31,20 @@ int main(void) {
     return -1;
   }
 
-  SDL_GL_LoadLibrary(NULL);
+  SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
+  SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
+  SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
+  SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
 
   SDL_Window *window{SDL_CreateWindow("SDL2 Window", SDL_WINDOWPOS_CENTERED,
                                       SDL_WINDOWPOS_CENTERED, 1600, 1200, 0)};
-
-  SDL_SetWindowResizable(window, SDL_TRUE);
 
   if (!window) {
     std::cout << "Failed to create GLFW window\n ";
     return -1;
   }
 
-  SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
-  SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
-  SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
-  SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
+  SDL_SetWindowResizable(window, SDL_TRUE);
 
   SDL_GLContext context{SDL_GL_CreateContext(window)};
 
@@ -55,8 +53,7 @@ int main(void) {
     return -1;
   }
 
-  // Check OpenGL properties
-
+  // Load OpenGL functions per system.
   int version{gladLoadGL((GLADloadfunc)SDL_GL_GetProcAddress)};
 
   printf("OpenGL loaded\n");
@@ -74,11 +71,14 @@ int main(void) {
   bool quit{false};
 
   while (!quit) {
+    // Input
     handleInput(window, event, quit);
 
+    // Render
     glClearColor(0.2f, 0.3f, 1.f, 0.f);
     glClear(GL_COLOR_BUFFER_BIT);
 
+    // Display
     SDL_GL_SwapWindow(window);
     SDL_Delay(1);
   }
