@@ -50,15 +50,18 @@ int main(void) {
 
   SDL_GLContext context{SDL_GL_CreateContext(window)};
 
-  if (maincontext == NULL) {
+  if (context == NULL) {
     std::cout << "Failed to create SDL2 context\n ";
     return -1;
   }
 
   // Check OpenGL properties
-  printf("OpenGL loaded\n");
 
-  gladLoadGL((GLADloadfunc)SDL_GL_GetProcAddress);
+  int version{gladLoadGL((GLADloadfunc)SDL_GL_GetProcAddress)};
+
+  printf("OpenGL loaded\n");
+  printf("GL %d.%d\n", GLAD_VERSION_MAJOR(version),
+         GLAD_VERSION_MINOR(version));
 
   printf("Vendor:   %s\n", glGetString(GL_VENDOR));
   printf("Renderer: %s\n", glGetString(GL_RENDERER));
