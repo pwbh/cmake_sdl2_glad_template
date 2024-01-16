@@ -29,7 +29,7 @@ if (NOT EXISTS "${PROJECT_SOURCE_DIR}/external/glfw/CMakeLists.txt")
   message(FATAL_ERROR "The glfw submodules was not downloaded! GIT_SUBMODULE was turned of or failed. Please check CMakeLists.")
 endif()
 
-if (NOT EXISTS "${PROJECT_SOURCE_DIR}/external/SDL2/CMakeLists.txt")
+if (NOT EXISTS "${PROJECT_SOURCE_DIR}/external/sdl2/CMakeLists.txt")
   message(FATAL_ERROR "The glfw submodules was not downloaded! GIT_SUBMODULE was turned of or failed. Please check CMakeLists.")
 endif()
 
@@ -39,24 +39,25 @@ endif()
 
 add_subdirectory(external/glfw)
 add_subdirectory(external/glad)
-add_subdirectory(external/SDL2)
+add_subdirectory(external/sdl2)
 
 target_include_directories(${PROJECT_NAME} 
   PUBLIC external/glfw/include
   PUBLIC external/glad/include
-  PUBLIC external/SDL2/include
+  PUBLIC external/sdl2/include
 )
 
 target_link_directories(${PROJECT_NAME} 
   PRIVATE external/glfw/src
   PRIVATE external/glad/src
-  PRIVATE external/SDL2/src 
+  PRIVATE external/sdl2/src 
 )
 
 target_link_libraries(${PROJECT_NAME} 
   glfw 
   glad
-  SDL2
+  SDL2main
+  SDL2-static
 )
 
 if (APPLE)
