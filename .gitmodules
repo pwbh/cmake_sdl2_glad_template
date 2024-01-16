@@ -1,8 +1,7 @@
-[submodule "glfw"]
+[submodule "external/glfw"]
 	path = external/glfw
 	url = git@github.com:glfw/glfw.git
-
-[submodule "sdl"]
+[submodule "external/sdl"]
 	path = external/sdl
 	url = git@github.com:libsdl-org/SDL.git
 	branch = SDL2
