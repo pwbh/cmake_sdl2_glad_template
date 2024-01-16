@@ -1,5 +1,4 @@
 #include <iostream>
-#define GL_SILENCE_DEPRECATION
 
 #include <glad/gl.h>
 
