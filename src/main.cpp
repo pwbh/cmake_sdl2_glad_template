@@ -48,7 +48,7 @@ int main(void) {
 
   SDL_GLContext context{SDL_GL_CreateContext(window)};
 
-  if (context == NULL) {
+  if (!context) {
     std::cout << "Failed to create SDL2 context\n ";
     return -1;
   }
@@ -56,31 +56,25 @@ int main(void) {
   // Load OpenGL functions per system.
   int version{gladLoadGL((GLADloadfunc)SDL_GL_GetProcAddress)};
 
-  printf("OpenGL loaded\n");
-  printf("GL %d.%d\n", GLAD_VERSION_MAJOR(version),
-         GLAD_VERSION_MINOR(version));
-
   printf("Vendor:   %s\n", glGetString(GL_VENDOR));
   printf("Renderer: %s\n", glGetString(GL_RENDERER));
   printf("Version:  %s\n", glGetString(GL_VERSION));
-
-  handleWindowResize(window);
 
   SDL_Event event;
 
   bool quit{false};
 
   while (!quit) {
-    // Input
-    handleInput(window, event, quit);
-
     // Render
-    glClearColor(0.2f, 0.3f, 1.f, 0.f);
+    glClearColor(0.2f, 0.7f, 0.3f, 0.f);
     glClear(GL_COLOR_BUFFER_BIT);
 
     // Display
     SDL_GL_SwapWindow(window);
     SDL_Delay(1);
+
+    // Input
+    handleInput(window, event, quit);
   }
 
   SDL_GL_DeleteContext(context);
