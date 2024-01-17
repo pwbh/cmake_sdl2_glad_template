@@ -52,10 +52,6 @@ target_link_libraries(${PROJECT_NAME}
   SDL2-static
 )
 
-if (APPLE)
-  target_link_libraries(${PROJECT_NAME} "-framework OpenGL")
-endif()
-
 # Create a symlink between the compile_commands in build folder and the src folder 
 # so that clangd can recognize different compiler arguments set in CMake
 file(CREATE_LINK
