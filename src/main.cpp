@@ -4,10 +4,8 @@
 
 #include <SDL2/SDL.h>
 
-void handleWindowResize(SDL_Window *window) {
-  int w{};
-  int h{};
-  SDL_GetWindowSize(window, &w, &h);
+void handleWindowResize(int w, int h) {
+  std::cout << "h: " << h << " w: " << w << '\n';
   glViewport(0, 0, w, h);
 }
 
@@ -17,9 +15,10 @@ void handleInput(SDL_Window *window, SDL_Event &event, bool &quit) {
     case SDL_QUIT:
       quit = true;
       break;
-    case SDL_WINDOWEVENT_RESIZED:
-    case SDL_WINDOWEVENT_SIZE_CHANGED:
-      handleWindowResize(window);
+    case SDL_WINDOWEVENT:
+      if (event.window.event == SDL_WINDOWEVENT_SIZE_CHANGED) {
+        handleWindowResize(event.window.data1, event.window.data2);
+      }
       break;
     }
   }
